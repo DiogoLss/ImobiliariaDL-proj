@@ -16,9 +16,13 @@ namespace ImobDLApi.Controllers
         }
 
         [HttpGet()]
-        public ActionResult<IEnumerable<Imovel>> GetImoveis()
+        public async Task<ActionResult<IEnumerable<Imovel>>> GetImoveis()
         {
-            var imoveis = _ouw.ImovelRepository.Get();
+            var imoveis = _ouw.ImovelRepository.Get().ToArray();
+            Imovel[] imoveisReturn = new Imovel[imoveis.Count()];
+            for(int i= 0; i < imoveis.Count(); i++){
+                imoveis[i].Bairro = await _ouw.BairroRepository.GetById(b => b.Id == imoveis[i].BairroId);
+            }
             return Ok(imoveis);
         }
         [HttpGet("{id}")]
@@ -27,8 +31,9 @@ namespace ImobDLApi.Controllers
             return await _ouw.ImovelRepository.GetById(i => i.Id == id);
         }
         [HttpPut("{id}")]
-        public async Task<ActionResult<Imovel>> Update(Imovel imovel)
+        public async Task<ActionResult<Imovel>> Update(Guid id, Imovel imovel)
         {
+            imovel.Id = id;
             _ouw.ImovelRepository.Update(imovel);
             await _ouw.Commit();
             return Ok(imovel);
