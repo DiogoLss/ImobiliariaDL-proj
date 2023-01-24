@@ -4,6 +4,7 @@ using ImobDLApi.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ImobDLApi.Migrations
 {
     [DbContext(typeof(ImobDLContext))]
-    partial class ImobDLContextModelSnapshot : ModelSnapshot
+    [Migration("20230123222223_cidadeVarchar")]
+    partial class cidadeVarchar
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,9 +90,8 @@ namespace ImobDLApi.Migrations
                     b.Property<int>("Quartos")
                         .HasColumnType("int");
 
-                    b.Property<string>("Rua")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Rua")
+                        .HasColumnType("int");
 
                     b.Property<int>("Salas")
                         .HasColumnType("int");

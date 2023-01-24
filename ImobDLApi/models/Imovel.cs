@@ -40,9 +40,9 @@ namespace ImobDLApi.models
         [Required]
         [StringLength(9)]
         public string CEP { get; set; }
-        public int Cidade { get; set; }
+        public string Cidade { get; set; }
         [Required(ErrorMessage = "Informe a rua do imóvel}")]
-        public int Rua { get; set; }
+        public string Rua { get; set; }
         [Required(ErrorMessage = "Informe o número do imóvel}")]
         public int Numero { get; set; }
     }
