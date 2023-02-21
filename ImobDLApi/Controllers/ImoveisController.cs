@@ -1,3 +1,4 @@
+using ImobDLApi.DTOs;
 using ImobDLApi.models;
 using ImobDLApi.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -15,15 +16,15 @@ namespace ImobDLApi.Controllers
             _ouw = ouw;
         }
 
-        [HttpGet()]
-        public async Task<ActionResult<IEnumerable<Imovel>>> GetImoveis()
+        [HttpGet("imoveisComFiltros")]
+        public ActionResult<IEnumerable<ImovelComFiltros>> GetImoveisComFiltros()
         {
-            var imoveis = _ouw.ImovelRepository.Get().ToArray();
-            Imovel[] imoveisReturn = new Imovel[imoveis.Count()];
-            for(int i= 0; i < imoveis.Count(); i++){
-                imoveis[i].Bairro = await _ouw.BairroRepository.GetById(b => b.Id == imoveis[i].BairroId);
-            }
-            return Ok(imoveis);
+            return Ok(_ouw.ImovelRepository.GetImoveisComFiltros());
+        }
+        [HttpGet]
+        public ActionResult<IEnumerable<Imovel>> GetImoveis()
+        {
+            return Ok(_ouw.ImovelRepository.GetMappedImoveis());
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<Imovel>> Get(Guid id)

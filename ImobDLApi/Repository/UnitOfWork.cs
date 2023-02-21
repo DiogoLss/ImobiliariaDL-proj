@@ -31,9 +31,10 @@ namespace ImobDLApi.Repository
                 return _bairroRepository = _bairroRepository ?? new BairroRepository(_context);
             }
         }
-        public async Task Commit()
+        public async Task<bool> Commit()
         {
-            await _context.SaveChangesAsync();
+            var success = await _context.SaveChangesAsync() > 0;
+            return success;
         }
         public void Dispose()
         {

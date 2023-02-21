@@ -7,6 +7,6 @@ namespace ImobDLApi.Repository
         IImovelRepository ImovelRepository { get; }
         IBairroRepository BairroRepository { get; }
 
-        Task Commit();
+        Task<bool> Commit();
     }
 }
