@@ -1,11 +1,15 @@
 import { Button, Icon, Item, Segment } from 'semantic-ui-react';
 import { Imovel } from '../../../app/models/imovel';
+import { useStore } from '../../../app/stores/stores';
 
 interface Props{
     imovel: Imovel
 }
 
 export default function ImovelListDetail({imovel}: Props){
+    const {imoveisStore} = useStore();
+    const {bairros} = imoveisStore;
+
     return(
     <Item>
         <Item.Image size='medium' src='/assets/images/cajuru.jfif'/>
@@ -23,7 +27,7 @@ export default function ImovelListDetail({imovel}: Props){
             </Segment>
             <Segment>
                 <span>
-                    <Icon name='marker'/>{imovel.bairro.nome}, {imovel.rua}, {imovel.numero}
+                    <Icon name='marker'/>{imovel.bairro}, {imovel.rua}, {imovel.numero}
                 </span>
             </Segment>
             <Segment secondary>

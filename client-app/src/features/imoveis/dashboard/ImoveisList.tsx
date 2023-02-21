@@ -12,8 +12,10 @@ export default observer(function ImoveisList(){
         <Item.Group>
             <h1>Imóveis</h1>
             {
-                imoveis.map(imovel =>(
-                    <ImovelListDetail imovel={imovel}/>
+                imoveis.map((imovel,bairro) =>(
+                    <ImovelListDetail 
+                    imovel={imovel}
+                    />
                 ))
             }
         </Item.Group>

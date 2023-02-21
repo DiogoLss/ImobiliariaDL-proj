@@ -1,5 +1,3 @@
-import { Bairro } from "./bairro";
-
 export interface Imovel{
     id: string,
     nome: string,
@@ -9,12 +7,10 @@ export interface Imovel{
     banheiros: number,
     salas: number,
     garagens: number,
-    eCondominio: boolean,
-    eApartamento: boolean,
+    tipo: string,
     numeroDoApCd: number,
     //
-    bairroId: number,
-    bairro: Bairro,
+    bairro: string,
     CEP: string,
     cidade: string,
     rua: string,
