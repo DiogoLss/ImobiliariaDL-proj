@@ -1,14 +1,13 @@
 using ImobDLApi.DTOs;
 using ImobDLApi.models;
 using ImobDLApi.Repository;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ImobDLApi.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-
-    public class ImoveisController : ControllerBase
+    public class ImoveisController : BaseApiController
     {
         private readonly IUnitOfWork _ouw;
         public ImoveisController(IUnitOfWork ouw)
@@ -16,7 +15,7 @@ namespace ImobDLApi.Controllers
             _ouw = ouw;
         }
 
-        [HttpGet("imoveisComFiltros")]
+        [HttpGet("Home")]
         public ActionResult<IEnumerable<ImovelComFiltros>> GetImoveisComFiltros()
         {
             return Ok(_ouw.ImovelRepository.GetImoveisComFiltros());
@@ -32,6 +31,7 @@ namespace ImobDLApi.Controllers
             return await _ouw.ImovelRepository.GetById(i => i.Id == id);
         }
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Imovel>> Update(Guid id, Imovel imovel)
         {
             imovel.Id = id;
@@ -40,13 +40,16 @@ namespace ImobDLApi.Controllers
             return Ok(imovel);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Imovel>> Create(Imovel imovel)
         {
+            imovel.Id = Guid.NewGuid();
             _ouw.ImovelRepository.Add(imovel);
             await _ouw.Commit();
             return Ok(imovel);
         }
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Imovel>> Delete(Guid id)
         {
             var imovel = await _ouw.ImovelRepository.GetById(i => i.Id == id);

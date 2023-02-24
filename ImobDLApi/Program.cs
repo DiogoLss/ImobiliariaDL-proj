@@ -1,5 +1,6 @@
 using ImobDLApi.Context;
 using ImobDLApi.Repository;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,11 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ImobDLContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<ImobDLContext>()
+    .AddDefaultTokenProviders();
+
 
 builder.Services.AddCors(options => {
     options.AddPolicy("CorsPolicy", policy => {
@@ -35,7 +41,10 @@ app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
+
 
 app.MapControllers();
 

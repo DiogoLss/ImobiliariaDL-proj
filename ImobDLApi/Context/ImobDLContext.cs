@@ -1,9 +1,10 @@
 using ImobDLApi.models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ImobDLApi.Context
 {
-    public class ImobDLContext : DbContext
+    public class ImobDLContext : IdentityDbContext
     {
         public ImobDLContext(DbContextOptions<ImobDLContext> options) : base(options)
         {

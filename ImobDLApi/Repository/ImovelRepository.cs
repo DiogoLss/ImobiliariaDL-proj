@@ -14,11 +14,12 @@ namespace ImobDLApi.Repository
         {
             var imoveis = _context.Imoveis.ToList();
             var imoveisDTO = new List<ImovelDTO>();
-
+            var bairros = _context.Bairros.ToList();
+            
             for(int i = 0; i < imoveis.Count; i++)
             {
                 var imovel = new ImovelDTO();
-                imoveis[i].Bairro = _context.Bairros.Find(imoveis[i].BairroId);
+                imoveis[i].Bairro = bairros.Find(b => b.Id == imoveis[i].BairroId);
                 imovel.MapImoveis(imoveis[i]);
                 imoveisDTO.Add(imovel);
             }

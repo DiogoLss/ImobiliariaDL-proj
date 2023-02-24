@@ -6,6 +6,7 @@ import { Imovel } from '../models/imovel';
 
 export default class imovelStore{
     //imoveis = new Map<string,Imovel>();
+    selectedImovel: Imovel | undefined = undefined;
     imoveis: Imovel[] = [];
     bairros: Bairro[] = [];
     imoveisCF?: ImovelComFiltros;
@@ -30,5 +31,22 @@ export default class imovelStore{
         }catch(error){
             console.log(error); 
         }
+    }
+    loadImovel = async(id: string) =>{
+        let imovel = this.getImovel(id);
+        if(imovel){
+            this.selectedImovel = imovel;
+            return this.selectedImovel;
+        }
+        else{
+            imovel = await agent.Imoveis.details(id);
+            runInAction(()=>{
+                this.selectedImovel = imovel;
+                return this.selectedImovel;
+            })
+        }
+    }
+    private getImovel = (id: string) => {
+        return this.imoveis.find(i => i.id === id);
     }
 }

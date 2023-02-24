@@ -1,6 +1,9 @@
+// import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 import './App.css';
-import ImoveisDashBoard from './features/imoveis/dashboard/ImoveisDashboard';
+import ImoveisDashboard from './features/imoveis/dashboard/ImoveisDashboard';
+// import ImoveisDashBoard from './features/imoveis/dashboard/ImoveisDashboard';
 import NavBar from './features/imoveis/NavBar';
 
 function App() {
@@ -8,7 +11,7 @@ function App() {
     <>
     <NavBar/>
     <Container style={{marginTop:'7em'}}>
-      <ImoveisDashBoard/>
+      <Outlet/>
     </Container>
     </>
   );

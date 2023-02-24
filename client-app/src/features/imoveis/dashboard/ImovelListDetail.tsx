@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Button, Icon, Item, Segment } from 'semantic-ui-react';
 import { Imovel } from '../../../app/models/imovel';
 import { useStore } from '../../../app/stores/stores';
@@ -36,6 +37,8 @@ export default function ImovelListDetail({imovel}: Props){
             <Segment clearing>
                 <span>R$ {imovel.preco}</span>
                 <Button
+                    as={Link}
+                    to={`/imoveis/${imovel.id}`}
                     floated='right'
                     content='View'
                     color='teal'
