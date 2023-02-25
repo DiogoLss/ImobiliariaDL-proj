@@ -30,11 +30,11 @@ namespace ImobDLApi.DTOs
             this.Quartos = imovel.Quartos;
             this.Salas = imovel.Salas;
             this.Garagens = imovel.Garagens;
-            this.Tipo = imovel.ECondominio? "Condominio" : imovel.EApartamento? "Apartamento" : "Casa";
             this.NumeroDoApCd = imovel.NumeroDoApCd is not null? imovel.NumeroDoApCd : null;
+            this.Tipo = imovel.Tipo.TipoDescricao;
+            this.Cidade = imovel.Cidade.CidadeNome;
             this.Bairro = imovel.Bairro.Nome;
             this.CEP = imovel.CEP;
-            this.Cidade = imovel.Cidade;
             this.Rua = imovel.Rua;
             this.Numero = imovel.Numero;
         }

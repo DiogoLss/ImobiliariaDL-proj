@@ -2,13 +2,17 @@ import {makeAutoObservable,runInAction} from 'mobx';
 import agent from '../api/agent';
 import ImovelComFiltros from '../DTOs/imovelComFiltros';
 import { Bairro } from '../models/bairro';
+import { Cidade } from '../models/cidade';
 import { Imovel } from '../models/imovel';
+import { Tipo } from '../models/tipo';
 
 export default class imovelStore{
     //imoveis = new Map<string,Imovel>();
     selectedImovel: Imovel | undefined = undefined;
     imoveis: Imovel[] = [];
     bairros: Bairro[] = [];
+    cidades: Cidade[] = [];
+    tipos: Tipo[] = [];
     imoveisCF?: ImovelComFiltros;
 
     constructor(){
@@ -20,12 +24,14 @@ export default class imovelStore{
             runInAction(()=>{
                 this.imoveis = imoveisCF.imoveis;
                 this.bairros = imoveisCF.bairros;
-                this.imoveis.forEach(obj => {
-                    this.imoveisCF?.imoveis.push(obj);
-                });
-                this.bairros.forEach(obj => {
-                    this.imoveisCF?.bairros.push(obj);
-                });
+                this.cidades = imoveisCF.cidades;
+                this.tipos = imoveisCF.tipos;
+                // this.imoveis.forEach(obj => {
+                //     this.imoveisCF?.imoveis.push(obj);
+                // });
+                // this.bairros.forEach(obj => {
+                //     this.imoveisCF?.bairros.push(obj);
+                // });
             })
             
         }catch(error){

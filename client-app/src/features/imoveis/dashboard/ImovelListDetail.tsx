@@ -1,15 +1,12 @@
 import { Link } from 'react-router-dom';
 import { Button, Icon, Item, Segment } from 'semantic-ui-react';
 import { Imovel } from '../../../app/models/imovel';
-import { useStore } from '../../../app/stores/stores';
 
 interface Props{
     imovel: Imovel
 }
 
 export default function ImovelListDetail({imovel}: Props){
-    const {imoveisStore} = useStore();
-    const {bairros} = imoveisStore;
 
     return(
     <Item>

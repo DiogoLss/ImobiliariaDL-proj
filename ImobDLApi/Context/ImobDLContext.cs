@@ -9,8 +9,9 @@ namespace ImobDLApi.Context
         public ImobDLContext(DbContextOptions<ImobDLContext> options) : base(options)
         {
         }
-        public DbSet<Imovel> Imoveis {get; set;}        
+        public DbSet<Imovel> Imoveis {get; set;}  
+        public DbSet<Cidade> Cidades { get; set; }      
         public DbSet<Bairro> Bairros {get; set;}
-        
+        public DbSet<Tipo> Tipos { get; set; }
     }
 }

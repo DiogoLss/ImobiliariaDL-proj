@@ -26,21 +26,19 @@ namespace ImobDLApi.models
         public int Salas { get; set; }
         [Range(0, 100, ErrorMessage = "A quantidade de {0} deve ser entre {1} e {2}")]
         public int Garagens { get; set; }
-        [Required]
-        public bool ECondominio { get; set; }
-        public bool EApartamento { get; set; }
         public int? NumeroDoApCd { get; set; }
 
         //ENDERECO
-
-        [Required(ErrorMessage = "Informe o bairro do imóvel")]
         public int BairroId { get; set; }
         public Bairro Bairro { get; set; }
+        public int CidadeId { get; set; }
+        public Cidade Cidade { get; set; }
+        public int TipoId { get; set; }
+        public Tipo Tipo { get; set; }
         //---
         [Required]
         [StringLength(9)]
         public string CEP { get; set; }
-        public string Cidade { get; set; }
         [Required(ErrorMessage = "Informe a rua do imóvel}")]
         public string Rua { get; set; }
         [Required(ErrorMessage = "Informe o número do imóvel}")]
