@@ -1,7 +1,7 @@
 import { observer } from "mobx-react-lite"
 import { useEffect } from "react"
 import { useParams } from "react-router-dom"
-import { Segment, Image } from "semantic-ui-react"
+import { Image, Container } from "semantic-ui-react"
 import { useStore } from "../../../app/stores/stores"
 
 
@@ -17,9 +17,12 @@ export default observer(function ImoveisDetails()
     },[id,loadImovel])
 
     return(
-        <Segment>
-            <Image src={`/assets/images/cajuru.jfif`} />
+        <Container>
+            <h1> </h1>
+            <h1> </h1>
             <h1>{selectedImovel?.nome}</h1>
-        </Segment>
+            <Image src={`/assets/images/cajuru.jfif`} />
+            
+        </Container>
     )
 })
