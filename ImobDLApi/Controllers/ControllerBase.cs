@@ -1,4 +1,5 @@
 //using Application.Core;
+using ImobDLApi.Services;
 using Microsoft.AspNetCore.Mvc;
 //using Microsoft.Extensions.DependencyInjection;
 
@@ -8,11 +9,11 @@ namespace ImobDLApi.Controllers
     [Route("api/[controller]")]
     public class BaseApiController : ControllerBase
     {
-        //  protected ActionResult HandleResult<T>(Result<T> result)
-        //  {
-        //     if(result.IsSuccess == true && result.Value != null) return Ok(result.Value);
-        //     if(result.IsSuccess == true && result.Value == null) return NotFound();
-        //     return BadRequest();
-        //  }
+         protected ActionResult HandleResult<T>(Result<T> result)
+         {
+            if(result.IsSuccess == true && result.Value != null) return Ok(result.Value);
+            if(result.IsSuccess == true && result.Value == null) return NotFound();
+            return BadRequest();
+         }
     }
 }

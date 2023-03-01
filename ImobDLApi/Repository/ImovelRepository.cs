@@ -1,6 +1,7 @@
 using ImobDLApi.Context;
 using ImobDLApi.DTOs;
 using ImobDLApi.models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ImobDLApi.Repository
 {
@@ -12,31 +13,49 @@ namespace ImobDLApi.Repository
         }
         public List<ImovelDTO> GetMappedImoveis()
         {
-            var imoveis = _context.Imoveis.ToList();
+            var imoveis = _context.Imoveis
+            .Include(i => i.Cidade)
+            .Include(i => i.Bairro)
+            .Include(i => i.Tipo)
+            .ToList();
             var imoveisDTO = new List<ImovelDTO>();
-            //var cidades = 
-            var bairros = _context.Bairros.ToList();
-            var cidades = _context.Cidades.ToList();
-            var tipos = _context.Tipos.ToList();
             
             for(int i = 0; i < imoveis.Count; i++)
             {
                 var imovel = new ImovelDTO();
-                imoveis[i].Bairro = bairros.Find(b => b.Id == imoveis[i].BairroId);
-                imoveis[i].Cidade = cidades.Find(c => c.Id == imoveis[i].CidadeId);
-                imoveis[i].Tipo = tipos.Find(t => t.Id == imoveis[i].TipoId);
                 imovel.MapImoveis(imoveis[i]);
                 imoveisDTO.Add(imovel);
             }
             return imoveisDTO;
         }
-        public ImovelComFiltros GetImoveisComFiltros()
+        public List<ImovelDTO> GetMappedImoveisFiltered(int? cidade, int? bairro, int? tipo)
         {
-            var result = new ImovelComFiltros();
+            var imoveis = _context.Imoveis
+            .Include(i => i.Cidade)
+            .Include(i => i.Bairro)
+            .Include(i => i.Tipo)
+            .Where(i =>
+                cidade.HasValue ? i.CidadeId == cidade : true
+                && bairro.HasValue ? i.BairroId == bairro : true
+                && tipo.HasValue ? i.TipoId == tipo : true
+            )
+            .ToList();
+            var imoveisDTO = new List<ImovelDTO>();
+            
+            for(int i = 0; i < imoveis.Count; i++)
+            {
+                var imovel = new ImovelDTO();
+                imovel.MapImoveis(imoveis[i]);
+                imoveisDTO.Add(imovel);
+            }
+            return imoveisDTO;
+        }
+        public Filtros GetFiltros()
+        {
+            var result = new Filtros();
             result.Bairros = _context.Bairros.ToList();
             result.Cidades = _context.Cidades.ToList();
             result.Tipos = _context.Tipos.ToList();
-            result.Imoveis = GetMappedImoveis();
             return result;
         }
     }

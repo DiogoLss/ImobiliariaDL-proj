@@ -15,15 +15,24 @@ namespace ImobDLApi.Controllers
             _ouw = ouw;
         }
 
-        [HttpGet("Home")]
-        public ActionResult<IEnumerable<ImovelComFiltros>> GetImoveisComFiltros()
+        [HttpGet("Filters")]
+        public ActionResult<IEnumerable<Filtros>> GetFiltros()
         {
-            return Ok(_ouw.ImovelRepository.GetImoveisComFiltros());
+            return Ok(_ouw.ImovelRepository.GetFiltros());
         }
         [HttpGet]
-        public ActionResult<IEnumerable<Imovel>> GetImoveis()
+        public ActionResult<IEnumerable<ImovelDTO>> GetImoveis()
         {
             return Ok(_ouw.ImovelRepository.GetMappedImoveis());
+        }
+        [HttpGet("Filtrados")]
+        public ActionResult<IEnumerable<ImovelDTO>> GetImoveisFiltered([FromQuery] FiltrosQueryDTO filtros)
+        {
+            if(filtros.Cidade is null && filtros.Bairro is null && filtros.Tipo is null)
+            {
+                return BadRequest();
+            }
+            return Ok(_ouw.ImovelRepository.GetMappedImoveisFiltered(filtros.Cidade, filtros.Bairro, filtros.Tipo));
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<Imovel>> Get(Guid id)

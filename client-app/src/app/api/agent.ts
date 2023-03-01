@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
-import ImovelComFiltros from '../DTOs/imovelComFiltros';
+import Filtros from '../DTOs/filtros';
+import FiltrosParameters from '../DTOs/filtrosParameters';
 import { Imovel } from '../models/imovel';
 
 const sleep = (delay: number) => {
@@ -31,7 +32,8 @@ const requests = {
 
 const Imoveis = {
     list: () => requests.get<Imovel[]>('/Imoveis'),
-    imoveisComFiltros: () => requests.get<ImovelComFiltros>('/Imoveis/Home'),
+    filtros: () => requests.get<Filtros>('/Imoveis/Filters'),
+    filtered: (filtros: FiltrosParameters, str: string) => requests.get<Imovel[]>(str),
     details: (id: string) => requests.get<Imovel>(`/Imoveis/${id}`),
     create: (imovel: Imovel) => axios.post<void>('/imoveis/',imovel),
     update: (imovel: Imovel) => axios.put<void>(`/imoveis/${imovel.id}`, imovel),
