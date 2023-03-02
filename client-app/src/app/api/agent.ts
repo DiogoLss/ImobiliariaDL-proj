@@ -33,7 +33,15 @@ const requests = {
 const Imoveis = {
     list: () => requests.get<Imovel[]>('/Imoveis'),
     filtros: () => requests.get<Filtros>('/Imoveis/Filters'),
-    filtered: (filtros: FiltrosParameters, str: string) => requests.get<Imovel[]>(str),
+    filtered: (filtros: FiltrosParameters) => axios.get<Imovel[]>('/Imoveis/Filtrados',{
+        params: {
+            cidade: filtros.cidade,
+            bairro: filtros.bairro,
+            tipo: filtros.tipo,
+            precoMin: filtros.min,
+            precoMax: filtros.max
+        }
+    }).then(responseBody),
     details: (id: string) => requests.get<Imovel>(`/Imoveis/${id}`),
     create: (imovel: Imovel) => axios.post<void>('/imoveis/',imovel),
     update: (imovel: Imovel) => axios.put<void>(`/imoveis/${imovel.id}`, imovel),

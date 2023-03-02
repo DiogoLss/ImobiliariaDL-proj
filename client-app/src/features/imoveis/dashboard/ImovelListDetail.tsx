@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Button, Icon, Item, ItemDescription, Segment } from 'semantic-ui-react';
+import { Button, Icon, Item } from 'semantic-ui-react';
 import { Imovel } from '../../../app/models/imovel';
 
 interface Props{

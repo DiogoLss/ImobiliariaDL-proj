@@ -28,16 +28,26 @@ namespace ImobDLApi.Repository
             }
             return imoveisDTO;
         }
-        public List<ImovelDTO> GetMappedImoveisFiltered(int? cidade, int? bairro, int? tipo)
+        public List<ImovelDTO> GetMappedImoveisFiltered(FiltrosQueryDTO filtros)
         {
             var imoveis = _context.Imoveis
             .Include(i => i.Cidade)
             .Include(i => i.Bairro)
             .Include(i => i.Tipo)
             .Where(i =>
-                cidade.HasValue ? i.CidadeId == cidade : true
-                && bairro.HasValue ? i.BairroId == bairro : true
-                && tipo.HasValue ? i.TipoId == tipo : true
+                filtros.Cidade.HasValue ? i.CidadeId == filtros.Cidade : true
+            )
+            .Where(i=>
+                filtros.Bairro.HasValue ? i.BairroId == filtros.Bairro : true
+            )
+            .Where(i=>
+                filtros.Tipo.HasValue ? i.TipoId == filtros.Tipo : true
+            )
+            .Where(i=>
+                filtros.PrecoMin.HasValue ? i.Preco > filtros.PrecoMin : true
+            )
+            .Where(i=>
+            filtros.PrecoMax.HasValue ? i.Preco < filtros.PrecoMax :  true
             )
             .ToList();
             var imoveisDTO = new List<ImovelDTO>();

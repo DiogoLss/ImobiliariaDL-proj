@@ -7,6 +7,6 @@ namespace ImobDLApi.Repository
     {
         public Filtros GetFiltros();
         public List<ImovelDTO> GetMappedImoveis();
-        public List<ImovelDTO> GetMappedImoveisFiltered(int? cidade, int? bairro, int? tipo);
+        public List<ImovelDTO> GetMappedImoveisFiltered(FiltrosQueryDTO filtros);
     }
 }

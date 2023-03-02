@@ -1,5 +1,5 @@
 import { Container, Header, HeaderContent } from "semantic-ui-react";
-import ImoveisFilter from "../imoveis/dashboard/ImoveisFilter";
+import ImoveisFilter from "../imoveis/filter/ImoveisFilter";
 
 export default function HomePage(){
     return(

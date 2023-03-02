@@ -28,11 +28,15 @@ namespace ImobDLApi.Controllers
         [HttpGet("Filtrados")]
         public ActionResult<IEnumerable<ImovelDTO>> GetImoveisFiltered([FromQuery] FiltrosQueryDTO filtros)
         {
-            if(filtros.Cidade is null && filtros.Bairro is null && filtros.Tipo is null)
+            if(filtros.Cidade is null 
+            && filtros.Bairro is null 
+            && filtros.Tipo is null
+            && filtros.PrecoMax is null
+            && filtros.PrecoMin is null)
             {
                 return BadRequest();
             }
-            return Ok(_ouw.ImovelRepository.GetMappedImoveisFiltered(filtros.Cidade, filtros.Bairro, filtros.Tipo));
+            return Ok(_ouw.ImovelRepository.GetMappedImoveisFiltered(filtros));
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<Imovel>> Get(Guid id)

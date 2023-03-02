@@ -10,5 +10,7 @@ namespace ImobDLApi.DTOs
         public int? Cidade { get; set; }
         public int? Bairro { get; set; }
         public int? Tipo { get; set; }
+        public decimal? PrecoMin { get; set; }
+        public decimal? PrecoMax { get; set; }
     }
 }
