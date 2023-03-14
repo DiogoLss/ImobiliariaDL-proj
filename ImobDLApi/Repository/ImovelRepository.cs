@@ -66,6 +66,8 @@ namespace ImobDLApi.Repository
             result.Bairros = _context.Bairros.ToList();
             result.Cidades = _context.Cidades.ToList();
             result.Tipos = _context.Tipos.ToList();
+            result.ValorMin = _context.Imoveis.Min(i => i.Preco);
+            result.ValorMax = _context.Imoveis.Max(i => i.Preco);
             return result;
         }
     }

@@ -9,6 +9,7 @@ export default class imovelStore{
     mensagem: string = 'Imóveis'
     selectedImovel: Imovel | undefined = undefined;
     imoveis: Imovel[] = [];
+    isFiltered: boolean = false;
     filtroPage: filtrosParameters = {
         cidade: null,
         bairro: null,
@@ -29,6 +30,8 @@ export default class imovelStore{
             {id: 0,
             tipoDescricao: 'Nada'}
         ],
+        valorMax: 2,
+        valorMin: 1
     }
 
     constructor(){
@@ -37,10 +40,13 @@ export default class imovelStore{
     loadImoveis = async() =>{
         try{
             const imoveis = await agent.Imoveis.list();
+            console.log('imov')
             runInAction(()=>{
                 this.imoveis = imoveis;
+                
                 this.mensagem = 'Imóveis'
             })
+            this.isFiltered = false;
             
         }catch(error){
             console.log(error); 
@@ -49,13 +55,16 @@ export default class imovelStore{
     loadImoveisFiltered = async(filtros: filtrosParameters) =>{
         try{
             const imoveis = await agent.Imoveis.filtered(filtros)
+            console.log('filtr')
             
             if(imoveis.length > 0){
                 this.mensagem = 'Imóveis encontrados'
                 runInAction(()=>{
                     this.imoveis = [];
                     this.imoveis = imoveis;
+                    
                 })
+            this.isFiltered = true;
             }else{
                 this.mensagem = 'Não achamos imóveis com as suas especificações'
             }

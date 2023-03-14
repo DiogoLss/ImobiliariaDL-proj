@@ -5,5 +5,7 @@ import { Tipo } from "../models/tipo";
 export default interface Filtros{
     bairros: Bairro[],
     cidades: Cidade[],
-    tipos: Tipo[]
+    tipos: Tipo[],
+    valorMax: number,
+    valorMin: number
 }

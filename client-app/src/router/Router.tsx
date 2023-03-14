@@ -11,7 +11,8 @@ export const routes: RouteObject[] = [
         element: <App />,
         children: [
             {path: '', element: <HomePage/>},
-            {path: 'imoveis', element: <ImoveisDashboard/>},
+            {path: 'imoveis', element: <ImoveisDashboard key={'imoveis'}/>},
+            {path: 'imoveis/filtrados', element: <ImoveisDashboard key={'filtrado'}/>},
             {path: 'imoveis/:id', element: <ImoveisDetails/>},
         ]
     }

@@ -1,6 +1,7 @@
 
 import { observer } from 'mobx-react-lite'
 import { ChangeEvent, SyntheticEvent, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Button, DropdownProps, Form, Grid, GridColumn, InputOnChangeData} from 'semantic-ui-react'
 import FiltrosParameters from '../../../app/DTOs/filtrosParameters'
 import { useStore } from '../../../app/stores/stores'
@@ -13,8 +14,8 @@ export default observer( function ImoveisFilter(){
         cidade: null,
         bairro: null,
         tipo: null,
-        min: null,
-        max: null
+        min: 0,
+        max: 0
     })
     useEffect(()=>{
         if(
@@ -45,7 +46,8 @@ export default observer( function ImoveisFilter(){
         })
     }
     function handleFilter(){
-        if(filter.bairro || filter.cidade || filter.tipo || filter.min || filter.max){
+        if(filter.bairro || filter.cidade || filter.tipo || filter.min! > 0 || filter.max! > 0){
+            console.log('func')
             loadImoveisFiltered(filter)
         }
         else{
@@ -108,8 +110,8 @@ export default observer( function ImoveisFilter(){
                     <GridColumn width={4}>
                     <Form.Input
                     label={filter.min?`Preço mínimo: ${filter.min}`:' '}
-                    min={100}
-                    max={3000}
+                    min={filtros.valorMin}
+                    max={filtros.valorMax}
                     name='min'
                     onChange={handleChange}
                     type='range'
@@ -120,8 +122,8 @@ export default observer( function ImoveisFilter(){
                     <GridColumn width={4}>
                     <Form.Input
                     label={filter.max?`Preço máximo: ${filter.max}`:' '}
-                    min={100}
-                    max={3000}
+                    min={filtros.valorMin}
+                    max={filtros.valorMax}
                     name='max'
                     onChange={handleChange}
                     type='range'
@@ -134,7 +136,7 @@ export default observer( function ImoveisFilter(){
                         <Button onClick={remove} content='limpar' color='blue' type='submit'/>
                     </GridColumn>
                     <GridColumn width={2} >
-                            <Button content='Procurar' color='blue' type='submit'/>
+                            <Button as={Link} to='/Imoveis/Filtrados' content='Procurar' color='blue' type='submit'/>
                     </GridColumn>
                 </Grid>
             </Form>

@@ -1,12 +1,16 @@
 import { observer } from 'mobx-react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Header, HeaderContent, Item } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/stores';
 import ImovelListDetail from './ImovelListDetail';
 
 export default observer(function ImoveisList(){
     const {imoveisStore} = useStore();
-    const {imoveis,mensagem} = imoveisStore;
+    const {loadImoveis, imoveis,mensagem,isFiltered} = imoveisStore;
+    
+    useEffect(()=>{
+      if(imoveis.length === 0 && !isFiltered)loadImoveis()
+    }, [loadImoveis, imoveis, isFiltered])
 
     return(
 
