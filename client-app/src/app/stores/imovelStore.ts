@@ -7,28 +7,29 @@ import { Imovel } from '../models/imovel';
 export default class imovelStore{
     //imoveis = new Map<string,Imovel>();
     mensagem: string = 'Imóveis'
+    isOpenedMsg: string = 'Mais opções';
     selectedImovel: Imovel | undefined = undefined;
     imoveis: Imovel[] = [];
+    isOpened: boolean = false;
     isFiltered: boolean = false;
+    isHorizontal: boolean = true;
     filtroPage: filtrosParameters = {
         cidade: null,
         bairro: null,
         tipo:null,
-        max:null,
-        min:null
     }
     filtros: Filtros = {
         cidades: [
             {id: 0,
-            cidadeNome: 'Nada'}
+            cidadeNome: ''}
         ],
         bairros: [
             {id: 0,
-            nome: 'Nada'}
+            nome: ''}
         ],
         tipos: [
             {id: 0,
-            tipoDescricao: 'Nada'}
+            tipoDescricao: ''}
         ],
         valorMax: 2,
         valorMin: 1
@@ -40,7 +41,6 @@ export default class imovelStore{
     loadImoveis = async() =>{
         try{
             const imoveis = await agent.Imoveis.list();
-            console.log('imov')
             runInAction(()=>{
                 this.imoveis = imoveis;
                 
@@ -96,6 +96,18 @@ export default class imovelStore{
     }
     updateFiltro = (filtro: filtrosParameters) =>{
         this.filtroPage = filtro
+    }
+    openOrClose = (action: boolean) =>{
+        this.isOpened = action;
+        if(action){
+            this.isOpenedMsg = 'Menos opções'
+        }
+        else{
+            this.isOpenedMsg = 'Mais opções'
+        }
+    }
+    updateHorizontal = (valor: boolean) =>{
+        this.isHorizontal = valor;
     }
     private getImovel = (id: string) => {
         return this.imoveis.find(i => i.id === id);
