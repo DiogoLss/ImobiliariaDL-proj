@@ -1,144 +1,110 @@
-export{}
-// import { observer } from 'mobx-react-lite'
-// import { ChangeEvent, SyntheticEvent, useEffect, useState } from 'react'
-// import { Link } from 'react-router-dom'
-// import { Button, DropdownProps, Form, Grid, GridColumn, InputOnChangeData} from 'semantic-ui-react'
-// import FiltrosParameters from '../../../app/DTOs/filtrosParameters'
-// import { useStore } from '../../../app/stores/stores'
+import { observer } from "mobx-react";
+import { ChangeEvent, ChangeEventHandler, SelectHTMLAttributes, useEffect, useState } from "react";
+import FiltrosParameters from "../../../app/DTOs/filtrosParameters";
+import { useStore } from "../../../app/stores/stores";
+import MultiRangeSlider from "./multiRangeSlider/MultiRangeSlider";
 
+export default observer( function ImoveisFilter2(){
+    const {imoveisStore} = useStore();
+    const {loadImoveisFiltered ,loadFilters, filtros, isOpened,openOrClose,isOpenedMsg} = imoveisStore;
+    const [arrow,setArrow] =useState<string>('dropdown-toggle');
+    const [filter, setFilter] = useState<FiltrosParameters>({
+        cidade: null,
+        bairro: null,
+        tipo: null,
+        max: null,
+        min: null
+    })
 
-// export default observer( function ImoveisFilter(){
-//     const {imoveisStore} = useStore();
-//     const {loadImoveisFiltered ,loadFilters, filtros, loadImoveis} = imoveisStore;
-//     const [filter, setFilter] = useState<FiltrosParameters>({
-//         cidade: null,
-//         bairro: null,
-//         tipo: null
-//     })
-//     useEffect(()=>{
-//         if(
-//             filtros.cidades.length <= 1
-//             || filtros.bairros.length <= 1
-//             || filtros.tipos.length <= 1
-//         )loadFilters();
-//       }, [loadFilters, filtros]
-//     )
-//     function handleChange(event: ChangeEvent<HTMLInputElement>, data: InputOnChangeData){
-//         console.log(data.value)
-//         const {name,value} = data
-//         setFilter({...filter, [name]: value})
-//     }
+    //CARREGA OS FILTROS
+    useEffect(()=>{
+        if(
+            filtros.cidades.length <= 1
+            || filtros.bairros.length <= 1
+            || filtros.tipos.length <= 1
+        )loadFilters();
+      }, [loadFilters, filtros])
 
-//     function handleInputChange(event: SyntheticEvent<HTMLElement, Event>, data: DropdownProps)
-//     {
-//         const {name,value} = data
-//         setFilter({...filter, [name]: value})
-//     }
-//     function remove(){
-//         setFilter({
-//             cidade: null,
-//             bairro: null,
-//             tipo: null,
-//         })
-//     }
-//     function handleFilter(){
-//         if(filter.bairro || filter.cidade || filter.tipo || filter.min! > 0 || filter.max! > 0){
-//             console.log('func')
-//             loadImoveisFiltered(filter)
-//         }
-//         else{
-//             loadImoveis()
-//         }
-//     }
-    
-//     const SelectExample = () => (
-//         <div className='divFilters'>
-//             <h1 className='titFiltro'>Procure os imóveis que deseja!</h1>
-//             <Form onSubmit={handleFilter}>
-//                 <Grid centered stackable columns={4}>
-//                     <GridColumn width={3}>
-//                         <Form.Select
-//                             onChange={handleInputChange}
-//                             placeholder='Selecione a cidade'
-//                             name='cidade'
-//                             value={filter.cidade!}
-//                             fluid
-//                             search
-//                             selection
-//                             options=
-//                             {filtros.cidades.map<{key: number, value: number, text: string}>((opt) =>(
-//                                 { key: opt.id, value: opt.id, text: opt.cidadeNome }
-//                             ))}
-//                         />
-//                     </GridColumn>
-//                     <GridColumn width={3}>
-//                         <Form.Select
-//                             onChange={handleInputChange}
-//                             placeholder='Selecione o bairro'
-//                             name='bairro'
-//                             value={filter.bairro!}
-//                             fluid
-//                             search
-//                             selection
-//                             options=
-//                             {filtros.bairros.map<{key: number, value: number, text: string}>((opt) =>(
-//                                 { key: opt.id, value: opt.id, text: opt.nome }
-//                             ))}
-//                         />
-//                     </GridColumn>
-//                     <GridColumn width={3}>
-//                         <Form.Select
-//                             onChange={handleInputChange}
-//                             placeholder='Selecione o tipo'
-//                             name='tipo'
-//                             value={filter.tipo!}
-//                             fluid
-//                             search
-//                             selection
-//                             options=
-//                             {filtros.tipos.map<{key: number, value: number, text: string}>((opt) =>(
-//                                 { key: opt.id, value: opt.id, text: opt.tipoDescricao }
-//                             ))}
-//                             />
-//                     </GridColumn>
-//                 </Grid>
-//                 <Grid centered stackable columns={2}>
-//                     <GridColumn width={4}>
-//                     <Form.Input
-//                     label={filter.min?`Preço mínimo: ${filter.min}`:' '}
-//                     min={filtros.valorMin}
-//                     max={filtros.valorMax}
-//                     name='min'
-//                     onChange={handleChange}
-//                     type='range'
-//                     value={filter.min}
-                    
-//                 />
-//                     </GridColumn>
-//                     <GridColumn width={4}>
-//                     <Form.Input
-//                     label={filter.max?`Preço máximo: ${filter.max}`:' '}
-//                     min={filtros.valorMin}
-//                     max={filtros.valorMax}
-//                     name='max'
-//                     onChange={handleChange}
-//                     type='range'
-//                     value={filter.max}
-//                 />
-//                     </GridColumn>
-//                 </Grid>
-//                 <Grid centered stackable columns={2}>
-//                     <GridColumn width={2} >
-//                         <Button onClick={remove} content='limpar' color='blue' type='submit'/>
-//                     </GridColumn>
-//                     <GridColumn width={2} >
-//                             <Button as={Link} to='/Imoveis/Filtrados' content='Procurar' color='blue' type='submit'/>
-//                     </GridColumn>
-//                 </Grid>
-//             </Form>
-//         </div>
-//       )
-//     return(  
-//     <SelectExample/>     
-// )
-// })
+      //SETTA OS VALORES ESCOLHIDOS NO DROPDOWN
+      function handleChangeSelect
+      (event: React.ChangeEvent<HTMLSelectElement>){
+        const {name, value} = event.target;
+        setFilter({...filter, [name]: value})
+      }
+
+      //ABRE OU FECHA A DIV COM FILTROS DETALHADOS
+      function openOpts(){
+        if(isOpened){
+            openOrClose(false)
+            setArrow('dropdown-toggle')
+        }else{
+            openOrClose(true)
+            setArrow('dropdown-toggleUpwards')
+        }
+      }
+      function handleFilter(){
+        loadImoveisFiltered(filter)
+      }
+
+    return(
+        <>
+            <h4 className="titFiltro">Encontre o imóvel de seus sonhos!</h4>
+            <div className="row outsideButtonsDivBox">
+                <div className="col-6 outsideButtonsDiv">
+                    <button className="buttonFilter btn outsideButtons">Venda</button>
+                </div>
+                <div className="col-6 outsideButtonsDiv">
+                    <button className="buttonFilter btn outsideButtons">Aluguel</button>
+                </div>
+            </div>
+            <div className="boxFilter">
+                <div className="itemsFilters row">
+                    <div className="col-md-3 dropdownDiv">
+                        <select onChange={handleChangeSelect} name="cidade" id="">
+                        <option value="0" key='0'>Cidade</option>
+                            {
+                                filtros.cidades.map((cidade)=>(
+                                        <option className="dropdownOptionFilter" key={cidade.id} value={cidade.id}>{cidade.cidadeNome}</option>
+                                ))
+                            }
+                        </select>
+                    </div>
+                    <div className="col-md-3 dropdownDiv">
+                        <select onChange={handleChangeSelect} name="bairro" id="">
+                        <option value="0" key='0'>Bairro</option>
+                            {
+                                filtros.bairros.map((bairro)=>(
+                                        <option className="dropdownOptionFilter" key={bairro.id} value={bairro.id}>{bairro.nome}</option>
+                                ))
+                            }
+                        </select>
+                    </div>                    
+                    <div className="col-md-3 dropdownDiv">
+                        <select onChange={handleChangeSelect} name="tipo" id="">
+                        <option value="0" key='0'>Tipo</option>
+                            {
+                                filtros.tipos.map((tipo)=>(
+                                    <option className="dropdownOptionFilter" key={tipo.id} value={tipo.id}>{tipo.tipoDescricao}</option>
+                                ))
+                            }
+                        </select>
+                    </div>
+                    <div className="col-md-3 buttonProcurar">
+                        <button onClick={handleFilter} className="buttonFilter btn">Procurar</button>
+                    </div>     
+                        {isOpened &&
+                        <div className="range">
+                            <MultiRangeSlider
+                            min={filtros.valorMin}
+                            max={filtros.valorMax}
+                            />
+                        </div>
+                        }    
+                </div> 
+            </div>
+            <div className="outsideButtonsDivBox">
+                <button className={`buttonFilter outsideButtons ${arrow}`} onClick={openOpts}>{isOpenedMsg}</button>
+            </div>
+        </>
+    )
+})

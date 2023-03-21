@@ -1,7 +1,7 @@
 import {makeAutoObservable,runInAction} from 'mobx';
 import agent from '../api/agent';
 import Filtros from '../DTOs/filtros';
-import filtrosParameters from '../DTOs/filtrosParameters';
+import filtrosParameters, { FiltrosParametersNumbers } from '../DTOs/filtrosParameters';
 import { Imovel } from '../models/imovel';
 
 export default class imovelStore{
@@ -11,12 +11,10 @@ export default class imovelStore{
     selectedImovel: Imovel | undefined = undefined;
     imoveis: Imovel[] = [];
     isOpened: boolean = false;
-    isFiltered: boolean = false;
     isHorizontal: boolean = true;
-    filtroPage: filtrosParameters = {
-        cidade: null,
-        bairro: null,
-        tipo:null,
+    RangeNum: FiltrosParametersNumbers = {
+        max: null,
+        min: null
     }
     filtros: Filtros = {
         cidades: [
@@ -45,28 +43,30 @@ export default class imovelStore{
                 this.imoveis = imoveis;
                 
                 this.mensagem = 'Imóveis'
-            })
-            this.isFiltered = false;
-            
+            })            
         }catch(error){
             console.log(error); 
         }
     }
     loadImoveisFiltered = async(filtros: filtrosParameters) =>{
         try{
-            const imoveis = await agent.Imoveis.filtered(filtros)
-            console.log('filtr')
-            
-            if(imoveis.length > 0){
-                this.mensagem = 'Imóveis encontrados'
+            filtros.max = this.RangeNum.max
+            filtros.min = this.RangeNum.min
+            if(filtros.cidade == null && filtros.cidade == null && filtros.max == null && filtros.max == null && filtros.min == null){
+                const imoveis = await agent.Imoveis.list()
                 runInAction(()=>{
-                    this.imoveis = [];
-                    this.imoveis = imoveis;
-                    
+                    this.imoveis = imoveis; 
                 })
-            this.isFiltered = true;
             }else{
-                this.mensagem = 'Não achamos imóveis com as suas especificações'
+                const imoveis = await agent.Imoveis.filtered(filtros)
+                if(imoveis.length > 0){
+                    this.mensagem = 'Imóveis encontrados'
+                    runInAction(()=>{
+                        this.imoveis = imoveis; 
+                    })
+                }else{
+                    this.mensagem = 'Não achamos imóveis com as suas especificações'
+                }
             }
         }catch(error){
             console.log(error); 
@@ -94,8 +94,12 @@ export default class imovelStore{
             })
         }
     }
-    updateFiltro = (filtro: filtrosParameters) =>{
-        this.filtroPage = filtro
+    setRangeNum=(name: string, valor: string)=>{
+        if(name === "max"){
+            this.RangeNum.max = parseInt(valor)
+        }else{
+            this.RangeNum.min = parseInt(valor)
+        }
     }
     openOrClose = (action: boolean) =>{
         this.isOpened = action;

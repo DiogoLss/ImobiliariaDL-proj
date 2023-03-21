@@ -7,11 +7,11 @@ import ImovelListDetail from './ImovelListDetail';
 
 export default observer(function ImoveisList(){
     const {imoveisStore} = useStore();
-    const {loadImoveis, imoveis,mensagem,isFiltered,isHorizontal,updateHorizontal} = imoveisStore;
+    const {loadImoveis, imoveis,mensagem,isHorizontal,updateHorizontal} = imoveisStore;
     
     useEffect(()=>{
-      if(imoveis.length === 0 && !isFiltered)loadImoveis()
-    }, [loadImoveis, imoveis, isFiltered])
+      if(imoveis.length === 0)loadImoveis()
+    }, [loadImoveis, imoveis])
 
     const Vertical = () => (
         <div className="row row-cols-3 container-imoveis">
