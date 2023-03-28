@@ -1,0 +1,40 @@
+.divFilters{
+    padding:  10% 50px 20% 50px;
+    background-position: center top;
+    background-size: cover;
+    background-image: url('https://www.estilofontana.com.br/blog/wp-content/uploads/2018/09/apartamentos-construtora-fontana.png');
+   }
+   .titFiltro{
+     color: rgb(234, 244, 248);
+     text-align: center;
+     font-size: 3rem;
+     font-family: Kanit!important;
+   }
+   .outsideButtonsDivBox{
+    margin: auto;
+    padding: 0 40%;
+   }
+   .outsideButtonsDiv{
+     padding: 0;
+   }
+   .outsideButtons{
+     margin: 0;
+     width: 100%;
+     /* border:none!important; */
+   }
+
+   @media (max-width: 1000px) {
+    .outsideButtonsDivBox{
+      margin: auto;
+      padding: 0 30%;
+    }
+  }
+  @media (max-width: 600px) {
+    .outsideButtonsDivBox{
+      margin: auto;
+      padding: 0 10%;
+    }
+    .titFiltro{
+        display: none;
+      }
+}

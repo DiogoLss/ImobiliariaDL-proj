@@ -1,6 +1,5 @@
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { Container, Menu } from 'semantic-ui-react';
-import ImoveisDashboard from './dashboard/ImoveisDashboard';
+import { Link, useNavigate } from 'react-router-dom';
+import '../css/NavBar.css'
 
 export default function NavBar(){
     const navigate = useNavigate();

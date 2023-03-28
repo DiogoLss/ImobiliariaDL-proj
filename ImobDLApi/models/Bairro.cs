@@ -11,5 +11,7 @@ namespace ImobDLApi.models
         public int Id { get; set; }
         [Required(ErrorMessage="Adicione o nome do bairro")]
         public string Nome { get; set; }
+        public int CidadeId { get; set; }
+        public Cidade Cidade { get; set; }
     }
 }

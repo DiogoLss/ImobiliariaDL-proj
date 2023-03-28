@@ -1,0 +1,26 @@
+.navbar{
+    /* background-color: #FCFFE7!important; */
+    background-color: rgb(245, 226, 200)!important;
+  }
+  .img-logo{
+    width: auto;
+    height: 70px;
+    margin-right: 50px;
+    cursor:pointer;
+  }
+  .img-logo:hover{
+    cursor:pointer;
+    height: 80px;
+    width: auto;
+    transition: 0.3s ease-in-out!important;
+  }
+  .nav-link{
+    font-size: 1.5rem;
+    padding: 15px 15px !important;
+    color: #BD1E1E;
+  }
+  .nav-link:hover{
+    color: #18206f;
+    transition: 0.3s ease-in-out!important;
+    font-size: 1.6rem;
+  }

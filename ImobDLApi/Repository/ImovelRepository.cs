@@ -14,9 +14,9 @@ namespace ImobDLApi.Repository
         public List<ImovelDTO> GetMappedImoveis()
         {
             var imoveis = _context.Imoveis
-            .Include(i => i.Cidade)
-            .Include(i => i.Bairro)
+            .Include(i => i.Bairro.Cidade)
             .Include(i => i.Tipo)
+            .Include(i => i.Images)
             .ToList();
             var imoveisDTO = new List<ImovelDTO>();
             
@@ -31,11 +31,11 @@ namespace ImobDLApi.Repository
         public List<ImovelDTO> GetMappedImoveisFiltered(FiltrosQueryDTO filtros)
         {
             var imoveis = _context.Imoveis
-            .Include(i => i.Cidade)
-            .Include(i => i.Bairro)
+            .Include(i => i.Bairro.Cidade)
             .Include(i => i.Tipo)
+            .Include(i => i.Images)
             .Where(i =>
-                filtros.Cidade.HasValue ? i.CidadeId == filtros.Cidade : true
+                filtros.Cidade.HasValue ? i.Bairro.CidadeId == filtros.Cidade : true
             )
             .Where(i=>
                 filtros.Bairro.HasValue ? i.BairroId == filtros.Bairro : true
@@ -49,6 +49,8 @@ namespace ImobDLApi.Repository
             .Where(i=>
             filtros.PrecoMax.HasValue ? i.Preco < filtros.PrecoMax :  true
             )
+            .Where(i=>
+            i.EVenda == filtros.EVenda)
             .ToList();
             var imoveisDTO = new List<ImovelDTO>();
             
@@ -63,11 +65,20 @@ namespace ImobDLApi.Repository
         public Filtros GetFiltros()
         {
             var result = new Filtros();
-            result.Bairros = _context.Bairros.ToList();
-            result.Cidades = _context.Cidades.ToList();
+            result.Bairros = _context.Bairros.Select(c => new Bairro{
+                Id = c.Id,
+                Nome = c.Nome,
+                CidadeId = c.CidadeId
+            }).ToList();  
+            result.Cidades = _context.Cidades.Select(c => new Cidade{
+                Id = c.Id,
+                CidadeNome = c.CidadeNome
+            }).ToList();  
             result.Tipos = _context.Tipos.ToList();
-            result.ValorMin = _context.Imoveis.Min(i => i.Preco);
-            result.ValorMax = _context.Imoveis.Max(i => i.Preco);
+            result.ValorMinA = _context.Imoveis.Where(x=>!x.EVenda).Min(i => i.Preco);
+            result.ValorMaxA = _context.Imoveis.Where(x=>!x.EVenda).Max(i => i.Preco);
+            result.ValorMinV = _context.Imoveis.Where(x=>x.EVenda).Min(i => i.Preco);
+            result.ValorMaxV = _context.Imoveis.Where(x=>x.EVenda).Max(i => i.Preco);
             return result;
         }
     }

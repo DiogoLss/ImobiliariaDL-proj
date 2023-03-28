@@ -36,23 +36,7 @@ namespace ImobDLApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Bairros");
-                });
-
-            modelBuilder.Entity("ImobDLApi.models.Cidade", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("CidadeNome")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cidades");
+                    b.ToTable("Bairros", (string)null);
                 });
 
             modelBuilder.Entity("ImobDLApi.models.Imovel", b =>
@@ -72,13 +56,19 @@ namespace ImobDLApi.Migrations
                         .HasMaxLength(9)
                         .HasColumnType("nvarchar(9)");
 
-                    b.Property<int>("CidadeId")
-                        .HasColumnType("int");
+                    b.Property<string>("Cidade")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
+
+                    b.Property<bool>("EApartamento")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("ECondominio")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Garagens")
                         .HasColumnType("int");
@@ -105,34 +95,11 @@ namespace ImobDLApi.Migrations
                     b.Property<int>("Salas")
                         .HasColumnType("int");
 
-                    b.Property<int>("TipoId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("BairroId");
 
-                    b.HasIndex("CidadeId");
-
-                    b.HasIndex("TipoId");
-
-                    b.ToTable("Imoveis");
-                });
-
-            modelBuilder.Entity("ImobDLApi.models.Tipo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("TipoDescricao")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tipos");
+                    b.ToTable("Imoveis", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -341,23 +308,7 @@ namespace ImobDLApi.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ImobDLApi.models.Cidade", "Cidade")
-                        .WithMany()
-                        .HasForeignKey("CidadeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ImobDLApi.models.Tipo", "Tipo")
-                        .WithMany()
-                        .HasForeignKey("TipoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Bairro");
-
-                    b.Navigation("Cidade");
-
-                    b.Navigation("Tipo");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

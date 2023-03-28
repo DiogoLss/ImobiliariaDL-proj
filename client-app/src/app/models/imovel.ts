@@ -1,3 +1,5 @@
+import { Images } from "./images";
+
 export interface Imovel{
     id: string,
     nome: string,
@@ -9,10 +11,11 @@ export interface Imovel{
     garagens: number,
     tipo: string,
     numeroDoApCd: number,
-    //
+    eVenda: boolean,
     bairro: string,
     CEP: string,
     cidade: string,
     rua: string,
-    numero: number
+    numero: number,
+    images: Images[]
 }

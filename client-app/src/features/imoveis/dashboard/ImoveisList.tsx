@@ -1,9 +1,10 @@
 import { observer } from 'mobx-react';
 import React, { useEffect } from 'react';
-import { Header, HeaderContent, Item } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/stores';
-import ImovelListDetailVertical, { ImovelListDetailHorizontal } from './ImovelListDetail';
-import ImovelListDetail from './ImovelListDetail';
+import '../../css/imoveis/ImoveisList.css'
+import ImovelListDetailHorizontal from './ImovelListDetailHorizontal';
+import ImovelListDetailVertical from './ImovelListDetailVertical';
+
 
 export default observer(function ImoveisList(){
     const {imoveisStore} = useStore();
@@ -43,22 +44,15 @@ export default observer(function ImoveisList(){
     function trocarVertical (){
         updateHorizontal(false)
     }
-
-    
-
     return(
     <div className="container text-center">
         <h1 className='titImoveis'>Imóveis</h1>
             <div className='row justify-content-end'>
                 <button className="fa-solid fa-list col-1 iconChange" onClick={trocarHorizontal}></button>
                 <button className="fa-solid fa-grip-vertical col-1 iconChange" onClick={trocarVertical}></button>
-            </div>
-            
-        
+            </div>     
         {isHorizontal && <Horizontal/>}        
-        {!isHorizontal && <Vertical/>}   
-        
+        {!isHorizontal && <Vertical/>}       
     </div>
-
     )
 })

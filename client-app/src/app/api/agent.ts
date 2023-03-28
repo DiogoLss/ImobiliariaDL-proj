@@ -39,7 +39,8 @@ const Imoveis = {
             bairro: filtros.bairro,
             tipo: filtros.tipo,
             precoMin: filtros.min,
-            precoMax: filtros.max
+            precoMax: filtros.max,
+            evenda: filtros.evenda
         }
     }).then(responseBody),
     details: (id: string) => requests.get<Imovel>(`/Imoveis/${id}`),

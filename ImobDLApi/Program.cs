@@ -1,4 +1,5 @@
 using ImobDLApi.Context;
+using ImobDLApi.Images;
 using ImobDLApi.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,8 @@ builder.Services.AddCors(options => {
     });
 });
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+builder.Services.AddScoped<IPhotoAccessor,PhotoAccessor>();
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("Cloudinary"));
 
 
 var app = builder.Build();

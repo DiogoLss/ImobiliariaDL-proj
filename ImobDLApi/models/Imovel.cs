@@ -7,6 +7,8 @@ namespace ImobDLApi.models
     {
         [Key]
         public Guid Id { get; set; }
+        [Required]
+        public bool EVenda { get; set; }
         public string Nome { get; set; }
         [Required]
         [StringLength(300)]
@@ -31,8 +33,6 @@ namespace ImobDLApi.models
         //ENDERECO
         public int BairroId { get; set; }
         public Bairro Bairro { get; set; }
-        public int CidadeId { get; set; }
-        public Cidade Cidade { get; set; }
         public int TipoId { get; set; }
         public Tipo Tipo { get; set; }
         //---
@@ -43,5 +43,6 @@ namespace ImobDLApi.models
         public string Rua { get; set; }
         [Required(ErrorMessage = "Informe o número do imóvel}")]
         public int Numero { get; set; }
+        public ICollection<Image> Images { get; set; }
     }
 }

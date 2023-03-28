@@ -1,0 +1,102 @@
+p, span{
+    
+}
+.card{
+    /* position:relative; */
+    /* height: 200px; */
+}
+.card-title{
+    justify-content: left;
+    display: flex;
+    padding-left: 30px;
+    margin: 0;
+    font-size: 1.3rem!important;
+}
+.descricao{
+    justify-content: left;
+    display: flex;
+    padding-left: 30px;
+    margin: 0;
+    font-size: 1.1rem!important;
+}
+.infoImovel{
+    justify-content: left;
+    display: flex;
+    padding: 0 0 5px 30px;
+    margin: 0;
+}
+.imovelPreco{
+    font-size: 1.3rem;
+    justify-content: left;
+    display: flex;
+    padding: 0 0 5px 30px;
+    margin: 0;
+}
+.iconesDivPai{
+    display: flex;
+    padding-left: 30px;
+}
+.iconesDiv{
+    border-right: 1px solid transparent;
+    border-color: #000;
+    padding-right: 15px;
+    margin-right: 10px;
+    height: 100%;
+}
+.icones{
+    margin-left: 7px;
+}
+.btnConfig{
+    margin-left: 50%;
+    width: 30%;
+}
+.btnDisplay{
+    background-color: #BD1E1E;
+    color: #fff;
+}
+.btnDisplay:hover{
+    background-color: #18206f;
+    color: #fff;
+}
+@media (max-width: 993px){
+    .btnConfig{
+        margin-left: 30%;
+        width: 40%;
+    }
+}
+@media (max-width: 767px){
+    .card-title{
+        justify-content: center;
+        padding-left: 0px;
+    }
+    .descricao{
+        justify-content: center;
+        padding-left: 0px;
+    }
+    .infoImovel{
+        justify-content: center;
+        display: flex;
+        margin: 0;
+        padding-left: 0px;
+    }
+    .imovelPreco{
+        font-size: 1.3rem;
+        justify-content: center;
+        display: flex;
+        margin: 0;
+        padding-left: 0px;
+    }
+}
+@media (max-width: 550px){
+    .btnConfig{
+        margin-left: 10%;
+        width: 40%;
+    }
+    .iconesDivPai{
+        justify-content: center;
+        padding: 0;
+    }
+}
+@media (max-width: 400px){
+    
+}

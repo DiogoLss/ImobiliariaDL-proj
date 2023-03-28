@@ -1,19 +1,30 @@
 import { observer } from "mobx-react";
-import { ChangeEvent, ChangeEventHandler, SelectHTMLAttributes, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import FiltrosParameters from "../../../app/DTOs/filtrosParameters";
 import { useStore } from "../../../app/stores/stores";
 import MultiRangeSlider from "./multiRangeSlider/MultiRangeSlider";
+import '../../css/filter/OutSideDiv.css'
+import '../../css/filter/InsideDiv.css'
+
+interface filtrosApp{
+    idCidade: number,
+    cidade: string,
+    idBairro: number,
+    bairro: string
+}
 
 export default observer( function ImoveisFilter2(){
     const {imoveisStore} = useStore();
     const {loadImoveisFiltered ,loadFilters, filtros, isOpened,openOrClose,isOpenedMsg} = imoveisStore;
     const [arrow,setArrow] =useState<string>('dropdown-toggle');
+    const [eVenda, setVenda] = useState<boolean>(false);
     const [filter, setFilter] = useState<FiltrosParameters>({
-        cidade: null,
-        bairro: null,
-        tipo: null,
-        max: null,
-        min: null
+        cidade: 0,
+        bairro: 0,
+        tipo: 0,
+        evenda: false,
+        max: 0,
+        min: 0
     })
 
     //CARREGA OS FILTROS
@@ -29,6 +40,7 @@ export default observer( function ImoveisFilter2(){
       function handleChangeSelect
       (event: React.ChangeEvent<HTMLSelectElement>){
         const {name, value} = event.target;
+        console.log(name + value)
         setFilter({...filter, [name]: value})
       }
 
@@ -42,19 +54,32 @@ export default observer( function ImoveisFilter2(){
             setArrow('dropdown-toggleUpwards')
         }
       }
+      function ChangeVenda(){
+        setVenda(true)
+        openOrClose(false)
+      }
+      function ChangeAluguel(){
+        setVenda(false)
+        openOrClose(false)
+      }
       function handleFilter(){
+        filter.evenda = eVenda;
         loadImoveisFiltered(filter)
       }
 
     return(
-        <>
+        <div className="divFilters container-flex">
             <h4 className="titFiltro">Encontre o imóvel de seus sonhos!</h4>
             <div className="row outsideButtonsDivBox">
                 <div className="col-6 outsideButtonsDiv">
-                    <button className="buttonFilter btn outsideButtons">Venda</button>
+                    <button onClick={ChangeVenda} style={
+                        eVenda?{backgroundColor:"#18206f"}:{}}
+                    className="buttonFilter btn outsideButtons">Venda</button>
                 </div>
                 <div className="col-6 outsideButtonsDiv">
-                    <button className="buttonFilter btn outsideButtons">Aluguel</button>
+                    <button onClick={ChangeAluguel} style={
+                        eVenda?{}:{backgroundColor:"#18206f"}}
+                    className="buttonFilter btn outsideButtons">Aluguel</button>
                 </div>
             </div>
             <div className="boxFilter">
@@ -63,8 +88,11 @@ export default observer( function ImoveisFilter2(){
                         <select onChange={handleChangeSelect} name="cidade" id="">
                         <option value="0" key='0'>Cidade</option>
                             {
-                                filtros.cidades.map((cidade)=>(
-                                        <option className="dropdownOptionFilter" key={cidade.id} value={cidade.id}>{cidade.cidadeNome}</option>
+                                filtros.cidades.map((cidade)=>
+                                
+                                (
+                                        <option className="dropdownOptionFilter" key={cidade.id} 
+                                        value={cidade.id}>{cidade.cidadeNome}</option>
                                 ))
                             }
                         </select>
@@ -74,7 +102,8 @@ export default observer( function ImoveisFilter2(){
                         <option value="0" key='0'>Bairro</option>
                             {
                                 filtros.bairros.map((bairro)=>(
-                                        <option className="dropdownOptionFilter" key={bairro.id} value={bairro.id}>{bairro.nome}</option>
+                                        <option className="dropdownOptionFilter" key={bairro.id} 
+                                        value={bairro.id}>{bairro.nome}</option>
                                 ))
                             }
                         </select>
@@ -95,8 +124,8 @@ export default observer( function ImoveisFilter2(){
                         {isOpened &&
                         <div className="range">
                             <MultiRangeSlider
-                            min={filtros.valorMin}
-                            max={filtros.valorMax}
+                            min={eVenda?filtros.valorMinV: filtros.valorMinA}
+                            max={eVenda?filtros.valorMaxV: filtros.valorMaxA}
                             />
                         </div>
                         }    
@@ -105,6 +134,6 @@ export default observer( function ImoveisFilter2(){
             <div className="outsideButtonsDivBox">
                 <button className={`buttonFilter outsideButtons ${arrow}`} onClick={openOpts}>{isOpenedMsg}</button>
             </div>
-        </>
+        </div>
     )
 })

@@ -29,10 +29,12 @@ export default class imovelStore{
             {id: 0,
             tipoDescricao: ''}
         ],
-        valorMax: 2,
-        valorMin: 1
+        valorMaxA: 2,
+        valorMinA: 1,
+        valorMaxV:2,
+        valorMinV:1
     }
-
+    
     constructor(){
         makeAutoObservable(this)
     }
@@ -52,7 +54,7 @@ export default class imovelStore{
         try{
             filtros.max = this.RangeNum.max
             filtros.min = this.RangeNum.min
-            if(filtros.cidade == null && filtros.cidade == null && filtros.max == null && filtros.max == null && filtros.min == null){
+            if(filtros.cidade === 0 && filtros.bairro === 0 && filtros.tipo === 0 && filtros.max === 0 && filtros.min === 0){
                 const imoveis = await agent.Imoveis.list()
                 runInAction(()=>{
                     this.imoveis = imoveis; 
@@ -60,12 +62,12 @@ export default class imovelStore{
             }else{
                 const imoveis = await agent.Imoveis.filtered(filtros)
                 if(imoveis.length > 0){
-                    this.mensagem = 'Imóveis encontrados'
+                    //this.mensagem = 'Imóveis encontrados'
                     runInAction(()=>{
                         this.imoveis = imoveis; 
                     })
                 }else{
-                    this.mensagem = 'Não achamos imóveis com as suas especificações'
+                    //this.mensagem = 'Não achamos imóveis com as suas especificações'
                 }
             }
         }catch(error){
@@ -75,7 +77,7 @@ export default class imovelStore{
     loadFilters = async() =>{
         try{
             const filtros = await agent.Imoveis.filtros();
-            this.filtros = filtros
+            this.filtros = filtros;
         }catch(error){
             console.log(error); 
         }

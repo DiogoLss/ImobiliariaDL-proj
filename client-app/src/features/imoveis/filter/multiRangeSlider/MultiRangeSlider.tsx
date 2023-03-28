@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react';
 import React, { ChangeEvent, FC, useCallback, useEffect, useState, useRef } from 'react';
-import { FiltrosParametersNumbers } from '../../../../app/DTOs/filtrosParameters';
 import { useStore } from '../../../../app/stores/stores';
 import './multiRangeSlider.css';
 

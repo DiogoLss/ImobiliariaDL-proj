@@ -13,5 +13,6 @@ namespace ImobDLApi.Context
         public DbSet<Cidade> Cidades { get; set; }      
         public DbSet<Bairro> Bairros {get; set;}
         public DbSet<Tipo> Tipos { get; set; }
+        public DbSet<Image> Images { get; set; }
     }
 }

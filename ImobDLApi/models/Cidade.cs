@@ -9,5 +9,6 @@ namespace ImobDLApi.models
     {
         public int Id { get; set; }
         public string CidadeNome { get; set; }
+        public ICollection<Bairro> Bairros { get; set; }
     }
 }

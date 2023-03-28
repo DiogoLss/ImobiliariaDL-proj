@@ -1,0 +1,92 @@
+.boxFilter{
+    background-color: rgba(234, 244, 248, 0.4);
+    /* background-color: #FCFFE7; */
+    margin: auto 5% auto 5%;
+    padding: 30px 10px 30px 10px;
+  }
+  .itemsFilters{
+    background-color: rgba(216, 131, 115,0.7);
+    padding: 3px 3px 3px 3px;
+    margin: 0 5px 0 5px;
+  }
+  .dropdownDiv{
+    padding: 0;
+    align-items: center;
+  }
+  .dropdownDiv select{
+    font-family: Kanit!important;
+    width: 100%;
+    font-size: 1.3rem;
+    border: 1px solid transparent;
+    border-color: #2B3467;
+    cursor: pointer;
+    padding: 4px;
+    background-color: #fff;
+    /* background-color: rgba(252, 255, 216, 0.4); */
+    color: #17255a;
+  }
+  .buttonProcurar{
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+  .buttonFilter{
+    background-color: #BD1E1E;
+    color: #fff;
+    font-family: Kanit!important;
+    font-size: 1.3rem;
+    border-radius: 0;
+    border: 1px solid transparent;
+    border-color: #2B3467;
+    padding: 3px 3px 3px 3px!important;
+    width: 100%;
+  }
+  .buttonFilter:hover{
+    background-color: #18206f;
+    color: #fff;
+    font-size: 1.3rem;
+    border: 1px solid transparent;
+    border-color: #2B3467;
+  }
+  .dropdown-toggleUpwards:after{
+    display: inline-block;
+    margin-left: 0.255em;
+    vertical-align: 0.255em;
+    content: "";
+    border-right: 0.3em solid transparent;
+    border-bottom: 0.3em solid;
+    border-left: 0.3em solid transparent;
+  }
+  
+  .segmentFilter {
+    background-color: #dfe6e9;
+  }
+  .range{
+    margin-top: 20px;
+    margin-bottom: 50px;
+  }
+
+  
+@media (max-width: 700px) {
+    .iconChange{
+      display: none;
+    }
+  }
+  @media (max-width: 600px) {
+    
+    .labelInput{
+      left: 25%;
+    }
+    .inputNumDiv{
+      padding: 10px 35px 10px 0px;
+    }
+  }
+  @media (max-width: 450px) {
+    .labelInput{
+      left: 45%;
+    }
+    .inputNumDiv{
+      padding: 10px 45px 10px 0px;
+    }
+  }
+  
