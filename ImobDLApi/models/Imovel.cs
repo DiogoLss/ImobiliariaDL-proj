@@ -9,6 +9,7 @@ namespace ImobDLApi.models
         public Guid Id { get; set; }
         [Required]
         public bool EVenda { get; set; }
+        public bool TelaInicial { get; set; }
         public string Nome { get; set; }
         [Required]
         [StringLength(300)]
