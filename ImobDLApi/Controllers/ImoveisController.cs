@@ -1,5 +1,6 @@
 using ImobDLApi.DTOs;
 using ImobDLApi.models;
+using ImobDLApi.Pagination;
 using ImobDLApi.Repository;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -21,23 +22,11 @@ namespace ImobDLApi.Controllers
             return Ok(_ouw.ImovelRepository.GetFiltros());
         }
         [HttpGet]
-        public ActionResult<IEnumerable<ImovelDTO>> GetImoveis()
+        public ActionResult<IEnumerable<ImovelDTO>> GetImoveis([FromQuery] ImoveisParameters parameters)
         {
-            return Ok(_ouw.ImovelRepository.GetMappedImoveis());
+            return Ok(_ouw.ImovelRepository.GetPagedImoveis(parameters));
         }
-        [HttpGet("Filtrados")]
-        public ActionResult<IEnumerable<ImovelDTO>> GetImoveisFiltered([FromQuery] FiltrosQueryDTO filtros)
-        {
-            // if(filtros.Cidade is null 
-            // && filtros.Bairro is null 
-            // && filtros.Tipo is null
-            // && filtros.PrecoMax is null
-            // && filtros.PrecoMin is null)
-            // {
-            //     return BadRequest();
-            // }
-            return Ok(_ouw.ImovelRepository.GetMappedImoveisFiltered(filtros));
-        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Imovel>> Get(Guid id)
         {

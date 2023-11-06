@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import Filtros from '../DTOs/filtros';
 import FiltrosParameters from '../DTOs/filtrosParameters';
 import { Imovel } from '../models/imovel';
+import { HomePage } from '../DTOs/homePage';
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -33,6 +34,7 @@ const requests = {
 const Imoveis = {
     list: () => requests.get<Imovel[]>('/Imoveis'),
     filtros: () => requests.get<Filtros>('/Imoveis/Filters'),
+    homePage: () => requests.get<HomePage>('/Imoveis/HomePage'),
     filtered: (filtros: FiltrosParameters) => axios.get<Imovel[]>('/Imoveis/Filtrados',{
         params: {
             cidade: filtros.cidade,

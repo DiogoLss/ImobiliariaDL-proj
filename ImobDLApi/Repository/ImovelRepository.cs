@@ -1,6 +1,8 @@
+using CloudinaryDotNet.Actions;
 using ImobDLApi.Context;
 using ImobDLApi.DTOs;
 using ImobDLApi.models;
+using ImobDLApi.Pagination;
 using Microsoft.EntityFrameworkCore;
 
 namespace ImobDLApi.Repository
@@ -10,6 +12,27 @@ namespace ImobDLApi.Repository
         public ImovelRepository(ImobDLContext context) : base(context)
         {
             _context = context;
+        }
+        public HomePage GetHomePage()
+        {
+            var homePage = new HomePage();
+            return homePage;
+        }
+        public IEnumerable<ImovelDTO> GetPagedImoveis(ImoveisParameters parameters)
+        {
+            var imoveis =  Get()
+                .Skip((parameters.PageNumber - 1) * parameters.PageSize)
+                .Take(parameters.PageSize)
+                .ToList();
+            var imoveisDTO = new List<ImovelDTO>();
+            
+            for(int i = 0; i < imoveis.Count; i++)
+            {
+                var imovel = new ImovelDTO();
+                imovel.MapImoveis(imoveis[i]);
+                imoveisDTO.Add(imovel);
+            }
+            return imoveisDTO;
         }
         public List<ImovelDTO> GetMappedImoveis()
         {
@@ -65,11 +88,6 @@ namespace ImobDLApi.Repository
         public Filtros GetFiltros()
         {
             var result = new Filtros();
-            result.Bairros = _context.Bairros.Select(c => new Bairro{
-                Id = c.Id,
-                Nome = c.Nome,
-                CidadeId = c.CidadeId
-            }).ToList();  
             result.Cidades = _context.Cidades.Select(c => new Cidade{
                 Id = c.Id,
                 CidadeNome = c.CidadeNome

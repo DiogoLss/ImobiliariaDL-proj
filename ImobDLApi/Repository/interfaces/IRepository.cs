@@ -4,7 +4,7 @@ namespace ImobDLApi.Repository
 {
     public interface IRepository<T>
     {
-        IQueryable<T> Get();
+        IEnumerable<T> Get();
         Task<T> GetById(Expression<Func<T, bool>> predicate);
         void Add(T entity);
         void Update(T entity);

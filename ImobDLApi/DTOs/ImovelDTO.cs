@@ -16,9 +16,8 @@ namespace ImobDLApi.DTOs
         public string Tipo { get; set; }
         public int? NumeroDoApCd { get; set; }
         //ENDERECO
-        public string Bairro { get; set; }
+        public Bairro Bairro { get; set; }
         public string CEP { get; set; }
-        public string Cidade { get; set; }
         public string Rua { get; set; }
         public int Numero { get; set; }
         public bool EVenda { get; set; }
@@ -35,10 +34,9 @@ namespace ImobDLApi.DTOs
             this.Salas = imovel.Salas;
             this.Garagens = imovel.Garagens;
             this.Banheiros = imovel.Banheiros;
-            this.NumeroDoApCd = imovel.NumeroDoApCd is not null? imovel.NumeroDoApCd : null;
+            this.NumeroDoApCd = imovel.NumeroDoApCd;
             this.Tipo = imovel.Tipo.TipoDescricao;
-            this.Cidade = imovel.Bairro.Cidade.CidadeNome;
-            this.Bairro = imovel.Bairro.Nome;
+            this.Bairro = imovel.Bairro;
             this.CEP = imovel.CEP;
             this.Rua = imovel.Rua;
             this.Numero = imovel.Numero;

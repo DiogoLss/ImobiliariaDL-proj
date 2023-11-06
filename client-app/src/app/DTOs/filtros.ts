@@ -1,9 +1,8 @@
-import { Bairro, Cidade } from "../models/localizacoes";
+import {Cidade } from "../models/cidade";
 import { Tipo } from "../models/tipo";
 
 export default interface Filtros{
     cidades: Cidade[],
-    bairros: Bairro[],
     tipos: Tipo[],
     valorMaxA: number,
     valorMinA: number,

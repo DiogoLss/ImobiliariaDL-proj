@@ -11,7 +11,7 @@ namespace ImobDLApi.Repository
         {
             _context = context;
         }
-        public IQueryable<T> Get()
+        public IEnumerable<T> Get()
         {
             return _context.Set<T>().AsNoTracking();
         }
